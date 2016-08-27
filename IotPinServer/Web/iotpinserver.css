@@ -1,0 +1,14 @@
+body {
+    background-color:Wheat;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:large;
+}
+
+div {
+    position: absolute;
+}
+
+.disabledContent {
+    pointer-events: none;
+    opacity: 0.4;
+}
