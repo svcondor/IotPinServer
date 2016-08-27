@@ -2,7 +2,7 @@ Windows 10 IoT PinServer Sample
 ==============
 IotPinServer creates a webserver on port  8800 of the Raspberry Pi. Any browser on the local nework can show and change the state of the GPIO pins.   Useful for checking that your breadboard is wired correctly before testing your own app.
  
-![ScreenShot](IotPinServer1.JPG)
+![ScreenShot](svcondor.github.com/IotPinServer/IotPinServer1.JPG)
 
 <ol>
     <li>https://github.com/tomkuijsten/restup is used to create the webserver</li>
