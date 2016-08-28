@@ -18,6 +18,9 @@ using System.Diagnostics.Tracing;
 
 // The Background Application template is documented at http://go.microsoft.com/fwlink/?LinkID=533884&clcid=0x409
 
+//  Webservice for Universal Windows Apps
+//  https://github.com/tomkuijsten/restup
+
 namespace IotPinServer
 {
     public sealed class StartupTask : IBackgroundTask
@@ -36,7 +39,7 @@ namespace IotPinServer
       httpServer.RegisterRoute("api", restRouteHandler);
 
       await httpServer.StartServerAsync();
-      Debug.WriteLine($"PinServer1 started on port {port}");
+      Debug.WriteLine($"IotPinServer has started on port {port}");
     }
   }
 
@@ -129,8 +132,8 @@ namespace IotPinServer
       return new GetResponse(GetResponse.ResponseStatus.OK, machineData);
     }
 
-    [UriFormat("?cmd=pinstatus&firstTime={firstTime}")]
-    public IAsyncOperation<IGetResponse> pinstatus(int firstTime) {
+    [UriFormat("?cmd=pinstatus&firstTime={firstTime}&rand={rand}")]
+    public IAsyncOperation<IGetResponse> pinstatus(int firstTime, string rand) {
       try {
         Debug.WriteLine($"pinstatus? in {firstTime}");
         return pinstatusAsync(firstTime).AsAsyncOperation();

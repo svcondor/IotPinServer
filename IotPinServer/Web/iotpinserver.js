@@ -48,23 +48,12 @@
     // Function to poll server for new/changed pin data
     // first call retrieves all pins, subsequent calls only updated pins
     function poll(firstTime) {
+        var rand = Math.random();
         $.ajax({
             url: "api?cmd=pinstatus",
-            data: { firstTime: firstTime },
+            data: { firstTime: firstTime, rand: rand },
             dataType: "json",
             timeout: 15000,
-            success: function (pinList1) {
-                for (var ix1 = 0; ix1 < pinList1.length; ++ix1) {
-                    displayPinData(pinList1[ix1]);
-                }
-                if (firstTime === "1") {
-                    // Set up handlers for checkboxes and radio buttons after all pins are displayed
-                    setupHandlers();
-                }
-                $("body").css("cursor", "default");
-                //Setup the next poll recursively
-                poll("0");
-            },
             error: function (xhr, status, errorThrown) {
                 console.log("Error: " + errorThrown);
                 console.log("Status: " + status);
@@ -76,6 +65,18 @@
                     location.reload(true);
                 });
             }
+        }).done(function (pinList1, textStatus, jqXHR ) {
+
+            for (var ix1 = 0; ix1 < pinList1.length; ++ix1) {
+                displayPinData(pinList1[ix1]);
+            }
+            if (firstTime === "1") {
+                // Set up handlers for checkboxes and radio buttons after all pins are displayed
+                setupHandlers();
+            }
+            $("body").css("cursor", "default");
+            //Setup the next poll recursively
+            poll("0");
         });
     }
 
@@ -157,5 +158,4 @@
         // Start a poll of the server for GPIO pin data
         poll("1");
     });
-
 })();
